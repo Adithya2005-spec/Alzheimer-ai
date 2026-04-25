@@ -1,9 +1,9 @@
 **🧠 AlzheimerAI — Intelligent Alzheimer's Detection System**
 
 An AI-powered web application for early Alzheimer's disease detection using cognitive assessment scores, ensemble machine learning, and NLP-based clinical note analysis.
-**Live Demo****:https://alzheimer-ai-8my1.onrender.com**
+**Live Demo**:[https://alzheimer-ai-8my1.onrender.com]
 
-**#📌 Table of Contents**
+**📌 Table of Contents**
 
 Overview
 Features
@@ -55,10 +55,11 @@ Frontend                                            HTML5, CSS3, Vanilla JavaScr
 Charts                                              Chart.js 4.4
 Deployment                                          Render (free tier), Gunicorn
 
-Research Basis
+**Research Basis**
+ 
 This project integrates findings from 15+ peer-reviewed papers (2022–2026):
-Gap IdentifiedSource
-SolutionBlack-box models
+Gap Identified Source
+Solution Black-box models
 Frontiers AI 2024
 Feature importance from RF + LR coefficients
 Unimodal limitation
@@ -73,7 +74,7 @@ Overfitting
 MDPI Diagnostics 2024
 Regularization (C=1.0) + cross-validation
 
-Project Structure
+**Project Structure**
 alzheimer-flask/
 │
 ├── app.py                        # Flask app — all routes + API
@@ -114,15 +115,15 @@ alzheimer-flask/
     ├── rf_model.pkl              # Trained RF model (auto-created)
     └── lr_model.pkl              # Trained LR model (auto-created)
 
-Installation
-Prerequisites
+**Installation
+Prerequisites**
 
 Python 3.10 or higher
 pip
 Git
 
-Steps
-bash# 1. Clone the repository
+**Steps**
+bash# **1. Clone the repository**
 git clone https://github.com/Adithya2005-spec/alzheimer-ai.git
 cd alzheimer-ai
 
@@ -145,18 +146,18 @@ python -c "import nltk; nltk.download('punkt_tab'); nltk.download('averaged_perc
 python app.py
 App runs at → http://localhost:5000
 
-Usage
+**Usage**
 1. Sign In
 
 Go to http://localhost:5000
 Enter any email + password (auto-registers on first use for demo)
 
-2. Dashboard
+**2. Dashboard**
 
 View total predictions, average confidence, MCI/AD counts
 See class distribution (doughnut), confidence timeline (line), model comparison (bar)
 
-3. Predict
+**3. Predict**
 
 Enter Patient ID
 Adjust 12 clinical sliders (MMSE, CDR, ADAS-Cog, etc.)
@@ -170,7 +171,7 @@ TextBlob sentiment + keyword detection
 
 
 
-4. History
+**4. History**
 
 View all past predictions in a table
 Filter by Patient ID
@@ -178,8 +179,9 @@ See longitudinal stage progression chart
 
 
 API Endpoints
-MethodEndpointDescriptionPOST/api/auth/loginSign in (auto-creates user for demo)
-POST/api/auth/registerRegister new user
+Method          Endpoint                 Description
+POST/          api/auth/login        Sign in (auto-creates user for demo)
+POST/          api/auth/registerRegister new user
 POST/api/predict/cognitiveRun RF+LR ensemble + TextBlob NLP
 GET/api/historyAll predictions (latest 50)
 GET/api/history/<patient_id>Predictions for specific patient
