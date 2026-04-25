@@ -1,8 +1,9 @@
-🧠 AlzheimerAI — Intelligent Alzheimer's Detection System
+**🧠 AlzheimerAI — Intelligent Alzheimer's Detection System**
 
 An AI-powered web application for early Alzheimer's disease detection using cognitive assessment scores, ensemble machine learning, and NLP-based clinical note analysis.
-Live Demo:https://alzheimer-ai-8my1.onrender.com
-📌 Table of Contents
+**Live Demo****:https://alzheimer-ai-8my1.onrender.com**
+
+**#📌 Table of Contents**
 
 Overview
 Features
@@ -20,7 +21,7 @@ Screenshots
 Disclaimer
 
 
-Overview
+**Overview**
 AlzheimerAI is a full-stack medical AI web application that predicts Alzheimer's disease stage using:
 
 Cognitive assessment scores (MMSE, CDR, ADAS-Cog, FAQ, RAVLT)
@@ -31,15 +32,46 @@ Interactive dashboards — live Chart.js visualizations
 
 Classification output: CN · MCI · Mild-AD · Moderate-AD
 
-Features
-FeatureDescription🔐 AuthSign In / Register with session management🧠 PredictCognitive form with 12 clinical sliders🤖 Ensemble MLRF + LR confidence-weighted fusion📊 DashboardLive stats + 3 Chart.js charts📋 HistoryFull prediction table with patient filter💬 NLPTextBlob sentiment + clinical keyword scan📈 LongitudinalStage progression chart over time🌐 Deploy-readyRender free-tier config included
+**Features**
 
-Tech Stack
-LayerTechnologyBackendFlask 3.1, Flask-CORSDatabaseSQLite (via Python sqlite3)ML ModelsRandom Forest + Logistic Regression (scikit-learn ≥ 1.6)NLPTextBlob + NLTK (punkt_tab)FrontendHTML5, CSS3, Vanilla JavaScript (AJAX fetch)ChartsChart.js 4.4DeploymentRender (free tier), Gunicorn
+**Feature Description**
+🔐 AuthSign In / Register with session management
+🧠 Predict Cognitive form with 12 clinical sliders
+🤖 Ensemble MLRF + LR confidence-weighted fusion
+📊 Dashboard Live stats + 3 Chart.js charts
+📋 History Full prediction table with patient filter
+💬 NLP TextBlob sentiment + clinical keyword scan
+📈 Longitudinal Stage progression chart over time
+🌐 Deploy-ready Render free-tier config included
+
+**Tech Stack**
+
+**Layer **                                             ** Technology**
+Backend                                             Flask 3.1, Flask-CORS
+Database                                            SQLite (via Python sqlite3)
+ML Models                                           Random Forest + Logistic Regression (scikit-learn ≥ 1.6)
+NLP                                                 TextBlob + NLTK (punkt_tab)
+Frontend                                            HTML5, CSS3, Vanilla JavaScript (AJAX fetch)
+Charts                                              Chart.js 4.4
+Deployment                                          Render (free tier), Gunicorn
 
 Research Basis
 This project integrates findings from 15+ peer-reviewed papers (2022–2026):
-Gap IdentifiedSourceSolutionBlack-box modelsFrontiers AI 2024Feature importance from RF + LR coefficientsUnimodal limitationFrontiers AI Agents 2025RF + LR ensemble fusionStatic data limitationScienceDirect 2025Longitudinal visit trackingNo NLP on notesBrain Informatics 2024TextBlob sentiment + keyword analysisOverfittingMDPI Diagnostics 2024Regularization (C=1.0) + cross-validation
+Gap IdentifiedSource
+SolutionBlack-box models
+Frontiers AI 2024
+Feature importance from RF + LR coefficients
+Unimodal limitation
+Frontiers AI Agents 2025RF + LR ensemble fusion
+Static data limitation
+ScienceDirect 2025
+Longitudinal visit tracking
+No NLP on notes
+Brain Informatics 2024
+TextBlob sentiment + keyword analysis
+Overfitting
+MDPI Diagnostics 2024
+Regularization (C=1.0) + cross-validation
 
 Project Structure
 alzheimer-flask/
@@ -91,7 +123,7 @@ Git
 
 Steps
 bash# 1. Clone the repository
-git clone https://github.com/YOUR_USERNAME/alzheimer-ai.git
+git clone https://github.com/Adithya2005-spec/alzheimer-ai.git
 cd alzheimer-ai
 
 # 2. Create and activate virtual environment (recommended)
