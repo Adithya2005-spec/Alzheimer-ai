@@ -1,66 +1,242 @@
-# 🧠 AlzheimerAI — Flask Edition
+🧠 AlzheimerAI — Intelligent Alzheimer's Detection System
 
-**Tech Stack:** Flask · SQLite · Random Forest · Logistic Regression · TextBlob · Chart.js · Render
+An AI-powered web application for early Alzheimer's disease detection using cognitive assessment scores, ensemble machine learning, and NLP-based clinical note analysis.
+Live Demo:https://alzheimer-ai-8my1.onrender.com
+📌 Table of Contents
 
----
+Overview
+Features
+Tech Stack
+Research Basis
+Project Structure
+Installation
+Usage
+API Endpoints
+ML Models
+NLP Analysis
+Deployment
+Known Fixes
+Screenshots
+Disclaimer
 
-## 🚀 Quick Start
 
-```bash
-# 1. Install dependencies
+Overview
+AlzheimerAI is a full-stack medical AI web application that predicts Alzheimer's disease stage using:
+
+Cognitive assessment scores (MMSE, CDR, ADAS-Cog, FAQ, RAVLT)
+Ensemble ML — Random Forest + Logistic Regression with confidence-adaptive fusion
+NLP analysis — TextBlob sentiment and clinical keyword detection on doctor's notes
+Longitudinal tracking — patient prediction history over multiple visits
+Interactive dashboards — live Chart.js visualizations
+
+Classification output: CN · MCI · Mild-AD · Moderate-AD
+
+Features
+FeatureDescription🔐 AuthSign In / Register with session management🧠 PredictCognitive form with 12 clinical sliders🤖 Ensemble MLRF + LR confidence-weighted fusion📊 DashboardLive stats + 3 Chart.js charts📋 HistoryFull prediction table with patient filter💬 NLPTextBlob sentiment + clinical keyword scan📈 LongitudinalStage progression chart over time🌐 Deploy-readyRender free-tier config included
+
+Tech Stack
+LayerTechnologyBackendFlask 3.1, Flask-CORSDatabaseSQLite (via Python sqlite3)ML ModelsRandom Forest + Logistic Regression (scikit-learn ≥ 1.6)NLPTextBlob + NLTK (punkt_tab)FrontendHTML5, CSS3, Vanilla JavaScript (AJAX fetch)ChartsChart.js 4.4DeploymentRender (free tier), Gunicorn
+
+Research Basis
+This project integrates findings from 15+ peer-reviewed papers (2022–2026):
+Gap IdentifiedSourceSolutionBlack-box modelsFrontiers AI 2024Feature importance from RF + LR coefficientsUnimodal limitationFrontiers AI Agents 2025RF + LR ensemble fusionStatic data limitationScienceDirect 2025Longitudinal visit trackingNo NLP on notesBrain Informatics 2024TextBlob sentiment + keyword analysisOverfittingMDPI Diagnostics 2024Regularization (C=1.0) + cross-validation
+
+Project Structure
+alzheimer-flask/
+│
+├── app.py                        # Flask app — all routes + API
+├── requirements.txt              # Python dependencies
+├── render.yaml                   # Render deployment config
+├── .gitignore
+├── .gitattributes                # Line ending normalization
+│
+├── models/
+│   ├── __init__.py
+│   ├── rf_model.py               # Random Forest classifier
+│   ├── lr_model.py               # Logistic Regression classifier
+│   └── ensemble.py               # Confidence-adaptive RF+LR fusion
+│
+├── utils/
+│   ├── __init__.py
+│   ├── db.py                     # SQLite schema + connection helper
+│   └── sentiment.py              # TextBlob NLP analysis
+│
+├── templates/
+│   ├── signin.html               # Sign In + Register page
+│   ├── dashboard.html            # Stats dashboard
+│   ├── predict.html              # Cognitive assessment form + results
+│   └── history.html              # Prediction history + chart
+│
+├── static/
+│   ├── css/
+│   │   └── main.css              # Full stylesheet (dark neuro-sci theme)
+│   └── js/
+│       ├── neural-bg.js          # Neural canvas + brain hex + wave
+│       ├── signin.js             # Auth AJAX + progress animation
+│       ├── dashboard.js          # Stats fetch + Chart.js rendering
+│       ├── predict.js            # Prediction AJAX + results display
+│       └── history.js            # History fetch + filter + chart
+│
+└── instance/
+    ├── alzheimer.db              # SQLite database (auto-created)
+    ├── rf_model.pkl              # Trained RF model (auto-created)
+    └── lr_model.pkl              # Trained LR model (auto-created)
+
+Installation
+Prerequisites
+
+Python 3.10 or higher
+pip
+Git
+
+Steps
+bash# 1. Clone the repository
+git clone https://github.com/YOUR_USERNAME/alzheimer-ai.git
+cd alzheimer-ai
+
+# 2. Create and activate virtual environment (recommended)
+python -m venv venv
+
+# Windows
+venv\Scripts\activate
+
+# Mac / Linux
+source venv/bin/activate
+
+# 3. Install dependencies
 pip install -r requirements.txt
 
-# 2. Download TextBlob corpora
-python -m textblob.download_corpora
+# 4. Download NLTK data for TextBlob
+python -c "import nltk; nltk.download('punkt_tab'); nltk.download('averaged_perceptron_tagger_eng')"
 
-# 3. Run
+# 5. Run the app
 python app.py
-# → http://localhost:5000
-```
+App runs at → http://localhost:5000
 
-## 📁 Structure
+Usage
+1. Sign In
 
-```
-alzheimer-flask/
-├── app.py                  # Flask app + all routes
-├── requirements.txt
-├── render.yaml             # Render deployment config
-├── models/
-│   ├── rf_model.py         # Random Forest (scikit-learn)
-│   ├── lr_model.py         # Logistic Regression (scikit-learn)
-│   └── ensemble.py         # Confidence-adaptive RF+LR fusion
-├── utils/
-│   ├── db.py               # SQLite init + helpers
-│   └── sentiment.py        # TextBlob NLP analysis
-├── templates/
-│   ├── signin.html         # Sign In / Register page
-│   ├── dashboard.html      # Stats + Chart.js dashboard
-│   ├── predict.html        # Cognitive assessment form
-│   └── history.html        # Prediction history table
-└── static/
-    ├── css/main.css        # Full stylesheet
-    └── js/
-        ├── neural-bg.js    # Shared canvas animations
-        ├── signin.js       # Auth AJAX logic
-        ├── dashboard.js    # Dashboard AJAX + Chart.js
-        ├── predict.js      # Prediction AJAX + results
-        └── history.js      # History AJAX + filtering
-```
+Go to http://localhost:5000
+Enter any email + password (auto-registers on first use for demo)
 
-## 🌐 Deploy to Render (Free Tier)
+2. Dashboard
 
-1. Push to GitHub
-2. Go to [render.com](https://render.com) → New Web Service
-3. Connect your repo
-4. Render auto-detects `render.yaml` — click Deploy
+View total predictions, average confidence, MCI/AD counts
+See class distribution (doughnut), confidence timeline (line), model comparison (bar)
 
-## 🔬 API Endpoints
+3. Predict
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/auth/login` | Sign in |
-| POST | `/api/auth/register` | Register |
-| POST | `/api/predict/cognitive` | RF+LR prediction + TextBlob NLP |
-| GET | `/api/history/<patient_id>` | Patient history |
-| GET | `/api/history` | All predictions |
-| GET | `/api/stats` | Dashboard statistics |
+Enter Patient ID
+Adjust 12 clinical sliders (MMSE, CDR, ADAS-Cog, etc.)
+Optionally type clinical notes for NLP analysis
+Click Run Analysis to get:
+
+Final ensemble prediction + risk level
+Random Forest vs Logistic Regression comparison
+Feature importance bars
+TextBlob sentiment + keyword detection
+
+
+
+4. History
+
+View all past predictions in a table
+Filter by Patient ID
+See longitudinal stage progression chart
+
+
+API Endpoints
+MethodEndpointDescriptionPOST/api/auth/loginSign in (auto-creates user for demo)
+POST/api/auth/registerRegister new user
+POST/api/predict/cognitiveRun RF+LR ensemble + TextBlob NLP
+GET/api/historyAll predictions (latest 50)
+GET/api/history/<patient_id>Predictions for specific patient
+GET/api/statsDashboard statistics
+GET/api/healthHealth check
+Example prediction request
+bashcurl -X POST http://localhost:5000/api/predict/cognitive \
+  -H "Content-Type: application/json" \
+  -d '{
+    "patient_id": "PT-001",
+    "mmse_score": 22,
+    "cdr_score": 0.5,
+    "adas_cog13": 25,
+    "memory_score": 12,
+    "orientation_score": 7,
+    "faq_score": 10,
+    "age": 74,
+    "clinical_notes": "Patient shows memory loss and confusion."
+  }'
+
+ML Models
+Random Forest
+
+n_estimators=200, max_depth=8
+Handles class imbalance via weighted sampling
+Outputs per-feature importance ranking
+Auto-saved to instance/rf_model.pkl
+
+Logistic Regression
+
+solver='lbfgs', max_iter=1000, C=1.0
+Multinomial multiclass (4 classes)
+Coefficient magnitudes used as feature importance
+Auto-saved to instance/lr_model.pkl
+
+Ensemble Fusion
+
+Confidence-adaptive weighted average: RF (55%) + LR (45%)
+Weights adjust dynamically based on per-prediction confidence
+Modality agreement flag for clinical decision support
+
+
+NLP Analysis
+TextBlob analyses the clinical_notes field and returns:
+OutputDescriptionpolarity−1.0 (negative) to +1.0 (positive)subjectivity0.0 (objective) to 1.0 (subjective)labelPositive / Neutral / Negativematched_keywordsClinical risk terms detectedclinical_concerntrue if ≥ 2 risk keywords foundsentencesPer-sentence polarity breakdown
+Risk keywords scanned: memory loss, confusion, disorientation, forgetful, cognitive decline, dementia, agitation, wandering, deterioration, worsening, and 10+ more.
+
+Deployment
+Deploy to Render (Free Tier)
+bash# 1. Push to GitHub
+git add .
+git commit -m "Deploy"
+git push origin main
+
+# 2. Go to https://render.com
+# 3. New → Web Service → Connect your GitHub repo
+# 4. Render auto-detects render.yaml
+# 5. Click Deploy
+The render.yaml already configures:
+
+Build: pip install -r requirements.txt
+Start: gunicorn app:app
+Python version: 3.11
+
+
+Known Fixes
+❌ multi_class keyword error
+Error: LogisticRegression.__init__() got an unexpected keyword argument 'multi_class'
+Fix: Remove multi_class='multinomial' from lr_model.py — deprecated in scikit-learn ≥ 1.7.
+Also delete instance/lr_model.pkl to force rebuild.
+
+❌ punkt_tab not found
+Error: Resource 'punkt_tab' not found
+Fix: Run in terminal:
+bashpython -c "import nltk; nltk.download('punkt_tab'); nltk.download('averaged_perceptron_tagger_eng')"
+
+⚠️ LF/CRLF warnings on Windows
+Warning: LF will be replaced by CRLF
+Fix: Completely harmless. Suppress with:
+bashgit config --global core.autocrlf true
+
+Disclaimer
+
+This application is built for educational and research purposes only.
+It is not validated for clinical use and must not be used as a substitute
+for professional medical diagnosis. Always consult a licensed medical professional.
+
+
+License
+MIT License — free to use, modify, and distribute with attribution.
+
+Built with research integrity · 15+ papers integrated · Flask + scikit-learn + TextBlob
