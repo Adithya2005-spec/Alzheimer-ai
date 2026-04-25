@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AlzheimerAI — Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/main.css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="app-body">
+  <canvas id="neural-canvas"></canvas>
+
+  <!-- Sidebar -->
+  <nav class="sidebar">
+    <div class="sidebar-brand">
+      <span class="brand-icon">🧠</span>
+      <span class="brand-name">ALZHEIMER AI</span>
+    </div>
+    <ul class="nav-list">
+      <li><a href="/dashboard" class="nav-link active"><span class="nav-icon">⬡</span>Dashboard</a></li>
+      <li><a href="/predict-page" class="nav-link"><span class="nav-icon">◈</span>Predict</a></li>
+      <li><a href="/history-page" class="nav-link"><span class="nav-icon">▷</span>History</a></li>
+    </ul>
+    <div class="nav-user">
+      <div class="user-dot"></div>
+      <span class="user-label" id="nav-user">CLINICIAN</span>
+    </div>
+  </nav>
+
+  <!-- Main -->
+  <main class="main-content">
+    <header class="page-header">
+      <div>
+        <h2 class="page-title">DASHBOARD</h2>
+        <p class="page-sub">SYSTEM OVERVIEW — REAL-TIME STATISTICS</p>
+      </div>
+      <div class="header-right">
+        <canvas id="header-wave" width="180" height="32"></canvas>
+        <span class="live-badge">● LIVE</span>
+      </div>
+    </header>
+
+    <!-- Stat cards -->
+    <div class="stat-grid">
+      <div class="stat-card" id="card-total">
+        <div class="stat-card-icon">⬡</div>
+        <div class="stat-card-val" id="stat-total">—</div>
+        <div class="stat-card-lbl">TOTAL PREDICTIONS</div>
+      </div>
+      <div class="stat-card" id="card-conf">
+        <div class="stat-card-icon">◈</div>
+        <div class="stat-card-val" id="stat-conf">—</div>
+        <div class="stat-card-lbl">AVG CONFIDENCE</div>
+      </div>
+      <div class="stat-card" id="card-mci">
+        <div class="stat-card-icon" style="color:#f59e0b">▷</div>
+        <div class="stat-card-val" id="stat-mci">—</div>
+        <div class="stat-card-lbl">MCI DETECTED</div>
+      </div>
+      <div class="stat-card" id="card-ad">
+        <div class="stat-card-icon" style="color:#ef4444">⬟</div>
+        <div class="stat-card-val" id="stat-ad">—</div>
+        <div class="stat-card-lbl">AD DETECTED</div>
+      </div>
+    </div>
+
+    <!-- Charts row -->
+    <div class="chart-grid">
+      <div class="chart-card">
+        <div class="chart-header">
+          <span class="chart-title">CLASS DISTRIBUTION</span>
+          <span class="chart-sub">Random Forest + LR Ensemble</span>
+        </div>
+        <div class="chart-wrap"><canvas id="chart-doughnut"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header">
+          <span class="chart-title">PREDICTION TIMELINE</span>
+          <span class="chart-sub">Recent 10 predictions</span>
+        </div>
+        <div class="chart-wrap"><canvas id="chart-line"></canvas></div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-header">
+          <span class="chart-title">MODEL COMPARISON</span>
+          <span class="chart-sub">RF vs Logistic Regression</span>
+        </div>
+        <div class="chart-wrap"><canvas id="chart-bar"></canvas></div>
+      </div>
+    </div>
+
+    <!-- Recent predictions -->
+    <div class="table-card">
+      <div class="chart-header">
+        <span class="chart-title">RECENT PREDICTIONS</span>
+        <a href="/history-page" class="view-all-link">VIEW ALL →</a>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>PATIENT ID</th><th>CLASS</th><th>CONFIDENCE</th>
+            <th>RF MODEL</th><th>LR MODEL</th><th>TIMESTAMP</th>
+          </tr>
+        </thead>
+        <tbody id="recent-tbody">
+          <tr><td colspan="6" class="loading-row">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script src="/static/js/neural-bg.js"></script>
+  <script src="/static/js/dashboard.js"></script>
+</body>
+</html>

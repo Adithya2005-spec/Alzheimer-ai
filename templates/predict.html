@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AlzheimerAI — Predict</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/main.css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="app-body">
+  <canvas id="neural-canvas"></canvas>
+
+  <nav class="sidebar">
+    <div class="sidebar-brand"><span class="brand-icon">🧠</span><span class="brand-name">ALZHEIMER AI</span></div>
+    <ul class="nav-list">
+      <li><a href="/dashboard" class="nav-link"><span class="nav-icon">⬡</span>Dashboard</a></li>
+      <li><a href="/predict-page" class="nav-link active"><span class="nav-icon">◈</span>Predict</a></li>
+      <li><a href="/history-page" class="nav-link"><span class="nav-icon">▷</span>History</a></li>
+    </ul>
+    <div class="nav-user"><div class="user-dot"></div><span class="user-label" id="nav-user">CLINICIAN</span></div>
+  </nav>
+
+  <main class="main-content">
+    <header class="page-header">
+      <div>
+        <h2 class="page-title">COGNITIVE ASSESSMENT</h2>
+        <p class="page-sub">RF + LOGISTIC REGRESSION ENSEMBLE · TextBlob NLP</p>
+      </div>
+      <canvas id="header-wave" width="180" height="32"></canvas>
+    </header>
+
+    <div class="predict-grid">
+      <!-- Form -->
+      <div class="predict-form-card">
+        <div class="chart-header"><span class="chart-title">PATIENT DATA INPUT</span></div>
+
+        <div class="form-row">
+          <div class="field-group">
+            <label class="field-label">PATIENT ID</label>
+            <input type="text" id="patient_id" value="PT-001" class="neo-input" />
+          </div>
+          <div class="field-group">
+            <label class="field-label">AGE</label>
+            <div class="slider-wrap">
+              <input type="range" id="age" min="50" max="100" value="72" class="neo-range" />
+              <span class="range-val" id="age-val">72</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-divider">CLINICAL SCORES</div>
+
+        <div class="slider-grid">
+          <div class="slider-item">
+            <label class="field-label">MMSE SCORE <span class="norm">(24–30 normal)</span></label>
+            <div class="slider-wrap">
+              <input type="range" id="mmse_score" min="0" max="30" value="24" class="neo-range" />
+              <span class="range-val" id="mmse_score-val">24</span>
+            </div>
+          </div>
+          <div class="slider-item">
+            <label class="field-label">CDR SCORE <span class="norm">(0 = normal)</span></label>
+            <div class="slider-wrap">
+              <input type="range" id="cdr_score" min="0" max="3" step="0.5" value="0.5" class="neo-range" />
+              <span class="range-val" id="cdr_score-val">0.5</span>
+            </div>
+          </div>
+          <div class="slider-item">
+            <label class="field-label">ADAS-COG 13 <span class="norm">(0–17 normal)</span></label>
+            <div class="slider-wrap">
+              <input type="range" id="adas_cog13" min="0" max="85" value="20" class="neo-range" />
+              <span class="range-val" id="adas_cog13-val">20</span>
+            </div>
+          </div>
+          <div class="slider-item">
+            <label class="field-label">MEMORY SCORE <span class="norm">(story recall)</span></label>
+            <div class="slider-wrap">
+              <input type="range" id="memory_score" min="0" max="25" value="14" class="neo-range" />
+              <span class="range-val" id="memory_score-val">14</span>
+            </div>
+          </div>
+          <div class="slider-item">
+            <label class="field-label">ORIENTATION <span class="norm">(9–10 normal)</span></label>
+            <div class="slider-wrap">
+              <input type="range" id="orientation_score" min="0" max="10" value="8" class="neo-range" />
+              <span class="range-val" id="orientation_score-val">8</span>
+            </div>
+          </div>
+          <div class="slider-item">
+            <label class="field-label">FAQ SCORE <span class="norm">(0–5 normal)</span></label>
+            <div class="slider-wrap">
+              <input type="range" id="faq_score" min="0" max="30" value="8" class="neo-range" />
+              <span class="range-val" id="faq_score-val">8</span>
+            </div>
+          </div>
+          <div class="slider-item">
+            <label class="field-label">JUDGMENT SCORE</label>
+            <div class="slider-wrap">
+              <input type="range" id="judgment_score" min="0" max="3" step="0.5" value="1" class="neo-range" />
+              <span class="range-val" id="judgment_score-val">1</span>
+            </div>
+          </div>
+          <div class="slider-item">
+            <label class="field-label">RAVLT IMMEDIATE</label>
+            <div class="slider-wrap">
+              <input type="range" id="ravlt_immediate" min="0" max="75" value="35" class="neo-range" />
+              <span class="range-val" id="ravlt_immediate-val">35</span>
+            </div>
+          </div>
+          <div class="slider-item">
+            <label class="field-label">EDUCATION (YRS)</label>
+            <div class="slider-wrap">
+              <input type="range" id="education_years" min="0" max="25" value="12" class="neo-range" />
+              <span class="range-val" id="education_years-val">12</span>
+            </div>
+          </div>
+          <div class="slider-item">
+            <label class="field-label">PREVIOUS MMSE</label>
+            <div class="slider-wrap">
+              <input type="range" id="prev_mmse_score" min="0" max="30" value="26" class="neo-range" />
+              <span class="range-val" id="prev_mmse_score-val">26</span>
+            </div>
+          </div>
+          <div class="slider-item">
+            <label class="field-label">VISITS COUNT</label>
+            <div class="slider-wrap">
+              <input type="range" id="visits_count" min="1" max="20" value="3" class="neo-range" />
+              <span class="range-val" id="visits_count-val">3</span>
+            </div>
+          </div>
+          <div class="slider-item">
+            <label class="field-label">SEX</label>
+            <div class="slider-wrap">
+              <input type="range" id="sex_encoded" min="0" max="1" value="0" class="neo-range" />
+              <span class="range-val" id="sex_encoded-val">Male</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="section-divider">CLINICAL NOTES (NLP ANALYSIS)</div>
+        <textarea id="clinical_notes" class="neo-textarea" rows="3"
+          placeholder="Enter clinical observations for TextBlob sentiment & keyword analysis..."></textarea>
+
+        <button class="submit-btn" id="predict-btn">◈ RUN ANALYSIS</button>
+      </div>
+
+      <!-- Results panel -->
+      <div class="results-panel" id="results-panel" style="display:none">
+        <!-- Diagnosis -->
+        <div class="result-card" id="result-diagnosis">
+          <div class="chart-header"><span class="chart-title">DIAGNOSIS RESULT</span></div>
+          <div class="diagnosis-main">
+            <div class="diagnosis-class" id="res-class">—</div>
+            <div class="diagnosis-conf" id="res-conf">—</div>
+            <div class="diagnosis-risk" id="res-risk"></div>
+            <div class="diagnosis-action" id="res-action"></div>
+          </div>
+        </div>
+
+        <!-- Prob chart -->
+        <div class="result-card">
+          <div class="chart-header"><span class="chart-title">CLASS PROBABILITIES</span></div>
+          <div class="chart-wrap-sm"><canvas id="chart-probs"></canvas></div>
+        </div>
+
+        <!-- Model comparison -->
+        <div class="result-card">
+          <div class="chart-header"><span class="chart-title">MODEL COMPARISON</span><span class="chart-sub" id="agree-badge"></span></div>
+          <div class="model-compare">
+            <div class="model-box rf-box">
+              <div class="model-lbl">RANDOM FOREST</div>
+              <div class="model-class" id="rf-class">—</div>
+              <div class="model-conf" id="rf-conf">—</div>
+            </div>
+            <div class="vs-divider">VS</div>
+            <div class="model-box lr-box">
+              <div class="model-lbl">LOGISTIC REGRESSION</div>
+              <div class="model-class" id="lr-class">—</div>
+              <div class="model-conf" id="lr-conf">—</div>
+            </div>
+          </div>
+          <div class="model-weights" id="model-weights"></div>
+        </div>
+
+        <!-- Feature importance -->
+        <div class="result-card">
+          <div class="chart-header"><span class="chart-title">FEATURE IMPORTANCE (RF)</span></div>
+          <div id="feat-bars"></div>
+        </div>
+
+        <!-- Sentiment -->
+        <div class="result-card" id="sentiment-card" style="display:none">
+          <div class="chart-header"><span class="chart-title">NLP ANALYSIS — TextBlob</span></div>
+          <div id="sentiment-content"></div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="/static/js/neural-bg.js"></script>
+  <script src="/static/js/predict.js"></script>
+</body>
+</html>

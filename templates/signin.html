@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AlzheimerAI — Sign In</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/main.css" />
+</head>
+<body class="auth-body">
+  <canvas id="neural-canvas"></canvas>
+  <div class="grid-overlay"></div>
+
+  <div class="auth-card" id="auth-card">
+    <!-- LEFT: Visual Panel -->
+    <div class="auth-visual">
+      <div class="corner tl"></div><div class="corner tr"></div>
+      <div class="corner bl"></div><div class="corner br"></div>
+      <div class="scanline"></div>
+      <canvas id="brain-hex" width="160" height="160"></canvas>
+      <div class="auth-brand">
+        <h1 class="brand-title">ALZHEIMER AI</h1>
+        <p class="brand-sub">NEURAL DETECTION SYSTEM</p>
+        <p class="brand-desc">SECURE MEDICAL AI PLATFORM<br>15+ RESEARCH PAPERS INTEGRATED<br>RF · LR · TextBlob NLP · Chart.js</p>
+      </div>
+      <canvas id="mini-wave" width="200" height="28"></canvas>
+      <div class="brand-stats">
+        <div class="stat"><span class="stat-val">4</span><span class="stat-lbl">CLASSES</span></div>
+        <div class="stat"><span class="stat-val">RF+LR</span><span class="stat-lbl">ENSEMBLE</span></div>
+        <div class="stat"><span class="stat-val">XAI</span><span class="stat-lbl">EXPLAINED</span></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Form Panel -->
+    <div class="auth-form-panel">
+      <div class="tab-toggle">
+        <button class="tab-btn active" data-tab="signin">⬡ Sign In</button>
+        <button class="tab-btn" data-tab="signup">◈ Register</button>
+      </div>
+
+      <div class="form-header">
+        <h2 class="form-title" id="form-title">SYSTEM ACCESS</h2>
+        <p class="form-desc" id="form-desc">AUTHORIZED MEDICAL PERSONNEL ONLY</p>
+      </div>
+
+      <form id="auth-form" autocomplete="off">
+        <!-- Signup-only fields -->
+        <div class="signup-only" style="display:none">
+          <div class="field-group">
+            <label class="field-label">◈ FULL NAME</label>
+            <div class="input-wrap">
+              <input type="text" id="name" placeholder="Dr. Jane Smith" class="neo-input" />
+            </div>
+            <span class="field-error" id="err-name"></span>
+          </div>
+          <div class="field-group">
+            <label class="field-label">⬡ INSTITUTION</label>
+            <div class="input-wrap">
+              <input type="text" id="institution" placeholder="City General Hospital" class="neo-input" />
+            </div>
+            <span class="field-error" id="err-institution"></span>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">▷ EMAIL ADDRESS</label>
+          <div class="input-wrap">
+            <input type="email" id="email" placeholder="doctor@hospital.org" class="neo-input" required />
+            <div class="input-line"></div>
+          </div>
+          <span class="field-error" id="err-email"></span>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">⬡ PASSWORD</label>
+          <div class="input-wrap pass-wrap">
+            <input type="password" id="password" placeholder="••••••••••" class="neo-input" required />
+            <button type="button" class="show-pass" id="toggle-pass">SHOW</button>
+            <div class="input-line"></div>
+          </div>
+          <span class="field-error" id="err-password"></span>
+        </div>
+
+        <div class="forgot-row signin-only">
+          <a href="#" class="forgot-link">FORGOT ACCESS CODE?</a>
+        </div>
+
+        <!-- Progress bar -->
+        <div class="progress-wrap" id="progress-wrap" style="display:none">
+          <div class="progress-header">
+            <span class="progress-label" id="progress-label">VERIFYING CREDENTIALS</span>
+            <span class="progress-pct" id="progress-pct">0%</span>
+          </div>
+          <div class="progress-track"><div class="progress-bar" id="progress-bar"></div></div>
+        </div>
+
+        <button type="submit" class="submit-btn" id="submit-btn">
+          <span id="btn-text">▶ INITIATE SESSION</span>
+        </button>
+
+        <div class="divider"><span>OR</span></div>
+
+        <div class="sso-row">
+          <button type="button" class="sso-btn orcid">⬡ ORCID SSO</button>
+          <button type="button" class="sso-btn inst">◈ INSTITUTION SSO</button>
+        </div>
+
+        <p class="auth-legal">BY ACCESSING THIS SYSTEM YOU AGREE TO HIPAA COMPLIANCE AND DATA PRIVACY PROTOCOLS</p>
+      </form>
+
+      <!-- Success state -->
+      <div class="auth-success" id="auth-success" style="display:none">
+        <div class="success-icon">✓</div>
+        <h3 class="success-title">ACCESS GRANTED</h3>
+        <p class="success-sub">IDENTITY VERIFIED — REDIRECTING...</p>
+        <div class="success-bar"></div>
+        <p class="success-name" id="success-name"></p>
+      </div>
+    </div>
+  </div>
+
+  <p class="sys-label">ALZHEIMER AI · NEURAL DETECTION SYSTEM v1.0 · FLASK + SQLITE</p>
+
+  <script src="/static/js/neural-bg.js"></script>
+  <script src="/static/js/signin.js"></script>
+</body>
+</html>

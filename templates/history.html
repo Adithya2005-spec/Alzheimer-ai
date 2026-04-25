@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AlzheimerAI — History</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/main.css" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body class="app-body">
+  <canvas id="neural-canvas"></canvas>
+
+  <nav class="sidebar">
+    <div class="sidebar-brand"><span class="brand-icon">🧠</span><span class="brand-name">ALZHEIMER AI</span></div>
+    <ul class="nav-list">
+      <li><a href="/dashboard" class="nav-link"><span class="nav-icon">⬡</span>Dashboard</a></li>
+      <li><a href="/predict-page" class="nav-link"><span class="nav-icon">◈</span>Predict</a></li>
+      <li><a href="/history-page" class="nav-link active"><span class="nav-icon">▷</span>History</a></li>
+    </ul>
+    <div class="nav-user"><div class="user-dot"></div><span class="user-label" id="nav-user">CLINICIAN</span></div>
+  </nav>
+
+  <main class="main-content">
+    <header class="page-header">
+      <div>
+        <h2 class="page-title">PREDICTION HISTORY</h2>
+        <p class="page-sub">ALL RECORDS · LONGITUDINAL TRACKING</p>
+      </div>
+      <div class="header-right">
+        <input type="text" id="patient-filter" placeholder="Filter by patient ID..." class="neo-input filter-input" />
+      </div>
+    </header>
+
+    <!-- Trend chart -->
+    <div class="chart-card mb-20">
+      <div class="chart-header">
+        <span class="chart-title">STAGE DISTRIBUTION OVER TIME</span>
+        <span class="chart-sub">Research basis: ScienceDirect 2025 — longitudinal tracking</span>
+      </div>
+      <div class="chart-wrap"><canvas id="chart-history"></canvas></div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-card">
+      <div class="chart-header">
+        <span class="chart-title">ALL PREDICTIONS</span>
+        <span id="record-count" class="chart-sub">Loading...</span>
+      </div>
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>PATIENT</th><th>FINAL CLASS</th><th>CONFIDENCE</th>
+            <th>RF</th><th>LR</th><th>AGREE</th><th>SENTIMENT</th><th>DATE</th>
+          </tr>
+        </thead>
+        <tbody id="history-tbody">
+          <tr><td colspan="8" class="loading-row">Loading records...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+
+  <script src="/static/js/neural-bg.js"></script>
+  <script src="/static/js/history.js"></script>
+</body>
+</html>

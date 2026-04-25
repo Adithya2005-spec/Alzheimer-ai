@@ -1,0 +1,18 @@
+# ── Web Framework ─────────────────────────────────────────────────
+flask==3.1.0
+flask-cors==5.0.0
+
+# ── ML — Python 3.14 compatible wheels ───────────────────────────
+# scikit-learn 1.6+ ships pre-built cp314 wheels (no compilation needed)
+scikit-learn>=1.6.0
+# numpy 2.x is required by scikit-learn 1.6+ on Python 3.14
+numpy>=2.0.0
+# pandas 2.2+ supports Python 3.14
+pandas>=2.2.0
+joblib>=1.4.0
+
+# ── NLP ───────────────────────────────────────────────────────────
+textblob==0.18.0
+
+# ── Deployment ────────────────────────────────────────────────────
+gunicorn==23.0.0
